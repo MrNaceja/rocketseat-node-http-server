@@ -67,8 +67,8 @@ export class Router extends Middleware {
     PUT(path, handler) {
         this.#addRoute('PUT', path, handler)
     }
-    PATH(path, handler) {
-        this.#addRoute('PATH', path, handler)
+    PATCH(path, handler) {
+        this.#addRoute('PATCH', path, handler)
     }
     DELETE(path, handler) {
         this.#addRoute('DELETE', path, handler)
