@@ -24,18 +24,18 @@ export class Router extends Middleware {
 
         for (const [route_method, routes_on_method] of this.#routes.entries()) {
 
-            const hasRouteOnMethod = route_method == method
+            const has_route_on_method = route_method == method
 
             for (const [ [ route_path, route_handler ] ] of routes_on_method) {
-                const hasRouteOnPath = route_path.test(url)
+                const has_route_on_path = route_path.test(url)
 
-                if ( hasRouteOnMethod && hasRouteOnPath) {
+                if ( has_route_on_method && has_route_on_path) {
                     const { groups } = url.match(route_path)
                     req.params = { ...groups }
                     const { address, port } = server.address()
                     const host = address === '::' ? 'localhost' : address
                     const server_url = new URL(`http://${host}:${port}/${url}`)
-                    req.query  = server_url.searchParams
+                    req.query = server_url.searchParams
                     return route_handler(req, res)
                 }
             }
@@ -54,6 +54,7 @@ export class Router extends Middleware {
         if ( !this.#routes.has(method) ) {
             this.#routes.set(method, [])
         }
+        
         this.#routes.get(method).push([ [ this.#buildRoutePath(path), handler ] ])
     }
 
